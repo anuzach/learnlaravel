@@ -2,6 +2,9 @@
 
 @section('content')
     <h1>Users</h1>
+    @if(Session::has('deleted_user'))
+        <p class="bg-danger">{{Session('deleted_user')}}</p>
+    @endif
     <table class="table">
         <thead>
           <tr>
@@ -12,7 +15,8 @@
             <th>Role</th>
             <th>Status</th>
             <th>Created </th>
-            <th>Update</th>
+            <th>Updated</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +31,16 @@
             <td>{{($user->status==1)?'Active':'Not Active'}}</td>
             <td>{{$user->created_at->diffForHumans()}}</td>
             <td>{{$user->updated_at->diffForHumans()}}</td>
+            <td>
+                {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy',$user->id], ]) !!}
+
+                    <div class="form-group">
+                        {!! Form::submit('Delete User', ['class'=>'btn btn-danger']) !!}
+                    </div>
+                    {!! Form::close() !!}
+
+
+                </td>
 
           </tr>
             @endforeach

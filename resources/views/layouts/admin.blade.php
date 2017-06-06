@@ -68,15 +68,41 @@
                 {{--</li>--}}
                 {{--</ul>--}}
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <i class="fa fa-user fa-fw"></i> {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                    <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                        <!-- Left Side Of Navbar -->
+                        <ul class="nav navbar-nav">
+                            &nbsp;
                         </ul>
-                    </li>
+
+                        <!-- Right Side Of Navbar -->
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- Authentication Links -->
+                            @if (Auth::guest())
+                                <li><a href="{{ route('login') }}">Login</a></li>
+                                <li><a href="{{ route('register') }}">Register</a></li>
+                            @else
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{{ route('logout') }}"
+                                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                Logout
+                                            </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endif
+                        </ul>
+                    </div>
                 </ul>
                 <!-- /.dropdown-user -->
             </li>
@@ -149,11 +175,11 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Posts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">All Posts</a>
+                                <a href="{{route('posts.index')}}">All Posts</a>
                             </li>
 
                             <li>
-                                <a href="#">Create Post</a>
+                                <a href="{{route('posts.create')}}">Create Post</a>
                             </li>
 
                         </ul>
