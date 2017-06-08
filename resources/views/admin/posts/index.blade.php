@@ -22,8 +22,8 @@
                     <td>{{$post->id}}</td>
                     <td><img src="{{($post->photo)? $post->photo->path:'http://placehold.it/400/400'}}"height="50"></td>
                     <td>{{$post->user->name}}</td>
-                    <td>{{$post->category_id}}</td>
-                    <td>{{$post->title}}</td>
+                    <td>{{$post->category? $post->category->name:'No Category to display'}}</td>
+                    <td><a href="{{route('posts.edit',$post->id)}}">{{$post->title}}</a></td>
                     <td>{{$post->body}}</td>
                     <td>{{$post->created_at->diffForHumans()}}</td>
                     <td>{{$post->updated_at->diffForHumans()}}</td>
